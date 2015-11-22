@@ -31,7 +31,7 @@ I cleaned the raw data and derive aggregate features from it. Variables are then
 6. For review, user & checkin, we then compute aggregate features out of the raw data. 
 7. Finally we merge the restaurant, review, user, checkin into 1 superset dataframe. In other words, we append the user & checkin data to each review. 
 
-Pls see full coding details in [RMD chunk "prep data"](https://github.com/elginlye/datasciencecoursera/blob/master/Capstone/Capstone.Rmd)
+Pls see full coding details in [RMD chunk "prep data"](https://github.com/elginlye/Capstone/blob/master/Capstone.Rmd)
 
 ```{r prep data, warning=FALSE, cache=TRUE, echo=FALSE, message=FALSE}
 library(jsonlite)
@@ -142,7 +142,7 @@ I group the review, user and checkin data by restaurant. Then derive summary sta
     + no. of days user has been a Yelp user
     + total no. of compliments
     
-Pls see full coding details in [RMD chunk "summarize data"](https://github.com/elginlye/datasciencecoursera/blob/master/Capstone/Capstone.Rmd)
+Pls see full coding details in [RMD chunk "summarize data"](https://github.com/elginlye/Capstone/blob/master/Capstone.Rmd)
 ```{r summarize data, warning=FALSE, echo=FALSE, cache=TRUE}
 ### Exploratory analysis
 
@@ -224,8 +224,8 @@ max_acc = round(max(acc@y.values[[1]]),3)
 max_acc_cutoff = round(as.numeric(acc@x.values[[1]][which.max(acc@y.values[[1]])]),3)
 abline(h=max_acc, lty=2, col=2)
 abline(v=max_acc_cutoff, lty=2, col=3)
-text(0.23, 0.78, paste0("max acc=", max_acc), col = 2)
-text(0.25, 0.25, paste0("cutoff=", max_acc_cutoff), col = 3)
+text(0.23, 0.78, paste0("max acc=", max_acc), col = 2, cex=0.5)
+text(0.25, 0.25, paste0("cutoff=", max_acc_cutoff), col = 3, cex=0.5)
 ```
 
 Model summary shows the coeffcients have small P-values with at least 90% significance level.   

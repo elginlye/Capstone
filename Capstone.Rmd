@@ -1,8 +1,9 @@
 ---
-title: Do users & their reviews have any correlation as to whether restaurants remain in business?
+title: Do users & their reviews have any correlation as to whether restaurants remain
+  in business?
 author: "LYE Keng Fook"
 date: "Sunday, 22 November, 2015"
-output: html_document
+output: word_document
 ---
 
 ## Introduction
@@ -30,7 +31,7 @@ I cleaned the raw data and derive aggregate features from it. Variables are then
 6. For review, user & checkin, we then compute aggregate features out of the raw data. 
 7. Finally we merge the restaurant, review, user, checkin into 1 superset dataframe. In other words, we append the user & checkin data to each review. 
 
-Pls see full coding details in [RMD chunk "prep data"](https://a.c.c)
+Pls see full coding details in [RMD chunk "prep data"](https://github.com/elginlye/datasciencecoursera/blob/master/Capstone/Capstone.Rmd)
 
 ```{r prep data, warning=FALSE, cache=TRUE, echo=FALSE, message=FALSE}
 library(jsonlite)
@@ -141,7 +142,7 @@ I group the review, user and checkin data by restaurant. Then derive summary sta
     + no. of days user has been a Yelp user
     + total no. of compliments
     
-Pls see full coding details in [RMD chunk "summarize data"](https://a.c.c)
+Pls see full coding details in [RMD chunk "summarize data"](https://github.com/elginlye/datasciencecoursera/blob/master/Capstone/Capstone.Rmd)
 ```{r summarize data, warning=FALSE, echo=FALSE, cache=TRUE}
 ### Exploratory analysis
 
@@ -208,11 +209,14 @@ roc.data <- data.frame(fpr=unlist(perf@x.values),
                        tpr=unlist(perf@y.values),
                        model="GLM")
 
-library(ggplot2)
-ggplot(roc.data, aes(x=fpr, ymin=0, ymax=tpr)) +
-    geom_ribbon(alpha=0.2) +
-    geom_line(aes(y=tpr)) +
-    ggtitle(paste0("ROC Curve w/ AUC=", auc))
+par(mfrow=c(1,2))
+plot(x=roc.data$fpr, y=roc.data$tpr, main="ROC Curve", xlab="FPR", ylab="TPR")
+
+# library(ggplot2)
+# ggplot(roc.data, aes(x=fpr, ymin=0, ymax=tpr)) +
+#     geom_ribbon(alpha=0.2) +
+#     geom_line(aes(y=tpr)) +
+#     ggtitle(paste0("ROC Curve w/ AUC=", auc))
 
 acc <- performance(pred, measure="acc")
 plot(acc, main="Optimal Cutoff")
@@ -220,8 +224,8 @@ max_acc = round(max(acc@y.values[[1]]),3)
 max_acc_cutoff = round(as.numeric(acc@x.values[[1]][which.max(acc@y.values[[1]])]),3)
 abline(h=max_acc, lty=2, col=2)
 abline(v=max_acc_cutoff, lty=2, col=3)
-text(0.65, 0.7, paste0("max acc=", max_acc), col = 2)
-text(0.62, 0.25, paste0("cutoff=", max_acc_cutoff), col = 3)
+text(0.23, 0.78, paste0("max acc=", max_acc), col = 2)
+text(0.25, 0.25, paste0("cutoff=", max_acc_cutoff), col = 3)
 ```
 
 Model summary shows the coeffcients have small P-values with at least 90% significance level.   
@@ -235,6 +239,6 @@ Further investigation should be done  on the model selection, and check for inte
 
 This classifier is applicable to other businesses too. The model is quick to run, with very little performance impact, Yelp could generate such summary statistics for each business and provide insights to support business decision.   
 --- END of REPORT ---
-```{r}
+```{r echo=FALSE, results="HIDE"}
 sessionInfo()
 ```
